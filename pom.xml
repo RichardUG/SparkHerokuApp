@@ -89,6 +89,11 @@
                     <jdkVersion>1.8</jdkVersion>
                     <!-- Use your own application name -->
                     <appName>sparkheroku</appName>
+                    <processTypes>
+                        <!-- Tell Heroku how to launch your application -->
+                        <!-- You might have to remove the ./ in front   -->
+                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* edu.esculaing.arep.sparkheroku.App</web>
+                    </processTypes>
                 </configuration>
             </plugin>
         </plugins>
