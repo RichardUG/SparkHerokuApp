@@ -19,6 +19,7 @@ public class App {
         get("/results", (req, res) -> resultsPage(req,res));
         get("/facadealpha", "application/json", (req, res) -> facadeAlpha(req,res));
         get("/facadeiex", "application/json", (req, res) -> facadeIex(req,res));
+        get("/facadeheroku", "application/json", (req, res) -> facadeHeroku(req,res));
     }
 
     private static String inputDataPage(Request req, Response res){
@@ -47,8 +48,9 @@ public class App {
     }
 
     static int getPort(){
-        if (System.getenv("PORT")!=null){
-            return Integer.parseInt(System.getenv("PORT"));
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT")!=null){
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
         return 4567;
     }
@@ -81,5 +83,10 @@ public class App {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
         return response;
+    }
+
+    private static String facadeHeroku(Request req, Response res){
+
+        return "";
     }
 }
