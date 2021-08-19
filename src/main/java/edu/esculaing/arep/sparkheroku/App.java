@@ -48,9 +48,8 @@ public class App {
     }
 
     static int getPort(){
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        if (processBuilder.environment().get("PORT")!=null){
-            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        if (System.getenv("PORT")!=null){
+            return Integer.parseInt(System.getenv("PORT"));
         }
         return 4567;
     }
