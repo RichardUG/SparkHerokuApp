@@ -19,7 +19,7 @@ public class App {
         get("/results", (req, res) -> resultsPage(req,res));
         get("/facadealpha", "application/json", (req, res) -> facadeAlpha(req,res));
         get("/facadeiex", "application/json", (req, res) -> facadeIex(req,res));
-        get("/facadeheroku", "application/json", (req, res) -> facadeHeroku(req,res));
+        get("/JSClient", (req, res) -> facadeJSClient(req,res));
     }
 
     private static String inputDataPage(Request req, Response res){
@@ -54,7 +54,9 @@ public class App {
         return 4567;
     }
 
-    private static String facadeAlpha(Request req, Response res){
+    public static String facadeAlpha(Request req, Response res){
+        System.out.println(req);
+        System.out.println(res);
         String stock = req.queryParams("st");
         String response = "None";
         HttpStockService stockService = CurrentServiceInstance.getInstance().getServiceAlpha();
@@ -69,7 +71,9 @@ public class App {
         return response;
     }
 
-    private static String facadeIex(Request req, Response res){
+    public static String facadeIex(Request req, Response res){
+        System.out.println(req);
+        System.out.println(res);
         String stock = req.queryParams("st");
         String response = "None";
         HttpStockService stockService = CurrentServiceInstance.getInstance().getServiceIEX();
@@ -84,8 +88,78 @@ public class App {
         return response;
     }
 
-    private static String facadeHeroku(Request req, Response res){
-
-        return "";
+    private static String  facadeJSClient(Request req, Response res) {
+        String pageContent
+                = "<!doctype html>"
+                + "<html lang=\"en\">"
+                + "<head>"
+                + "  <!-- Required meta tags -->"
+                + "  <meta charset=\"utf-8\">"
+                + "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">"
+                + "  <!-- Bootstrap CSS -->"
+                + "  <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\" integrity=\"sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO\" crossorigin=\"anonymous\">"
+                + "  <title>Hello, world!</title>"
+                + "</head>"
+                + "<script  type=\"text/javascript\" lang=\"JavaScript\">"
+                + "  function paraIEX() {"
+                + "    return \"facadeiex\""
+                + "  }"
+                + "</script>"
+                + "<script  type=\"text/javascript\" lang=\"JavaScript\">"
+                + "  function paraAlpha() {"
+                + "    return \"facadealpha\""
+                + "  }"
+                + "</script>"
+                + "<script  type=\"text/javascript\" lang=\"JavaScript\">"
+                + "  function ChangeStockOriginal() {"
+                + "    if(document.getElementById(\"IEXCloud\").checked){"
+                + "      document.getElementById(\"digite\").value=\"aapl\""
+                + "    }"
+                + "    if(document.getElementById(\"AlphaVantage\").checked){"
+                + "      document.getElementById(\"digite\").value=\"fb\""
+                + "    }"
+                + "  }"
+                + "</script>"
+                + "<script>"
+                + "  function abrir() {"
+                + "    if(document.getElementById(\"IEXCloud\").checked){"
+                + "      miVentana = window.open( paraIEX()+\"?st=\"+document.getElementById(\"digite\").value, \"ventana1\", \"height=screen.height,width=screen.width,left=300,location=yes,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=yes,top=300\");"
+                + "    }"
+                + "    if(document.getElementById(\"AlphaVantage\").checked){"
+                + "      miVentana = window.open( paraAlpha()+\"?st=\"+document.getElementById(\"digite\").value, \"ventana1\", \"height=screen.height,width=screen.width,left=300,location=yes,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=yes,top=300\");"
+                + "    }"
+                + "    miVentana.moveTo(-100, -100);"
+                + "  }"
+                + "</script>"
+                + "<center>"
+                + "<body>"
+                + "  <br><br><br><br>"
+                + "  <h1>Java Scrip Client</h1>"
+                + "  <h2>Consultas API</h2>"
+                + "  <br>"
+                + "  <h4>Stock = <input type=\"text\" id=\"digite\" value=\"aapl\"></h4>"
+                + "  <br>"
+                + "  <h4>Seleccione la API que desea consultar</h4>"
+                + "  <br>"
+                + "  <div class=\"btn-group btn-group-toggle\" data-toggle=\"buttons\" onchange=\"ChangeStockOriginal()\">"
+                + "    <label class=\"btn btn-secondary active\" >"
+                + "      <input type=\"radio\" name=\"options\" id=\"IEXCloud\" autocomplete=\"off\"  checked> IEXCloud API"
+                + "    </label>"
+                + "    <label class=\"btn btn-secondary\">"
+                + "      <input type=\"radio\" name=\"options\" id=\"AlphaVantage\" autocomplete=\"off\" > Alpha vantage API"
+                + "    </label>"
+                + "  </div>"
+                + "  <button color=\"white\"><img src=\"https://previews.123rf.com/images/will46/will461412/will46141200142/34745798-signo-de-interrogaci%C3%B3n-gris.jpg\" width=\"48\" height=\"48\"></button>"
+                + "  <br><br>"
+                + "  <div type=\"button\" name=\"boton3\" id=\"boton3\" class=\"btn btn-primary active\" align=\"center\" onclick=\"abrir()\">Buscar</a></div>"
+                + "  <div id=\"container\">"
+                + "  <script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"></script>"
+                + "  <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js\" integrity=\"sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49\" crossorigin=\"anonymous\"></script>"
+                + "  <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js\" integrity=\"sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy\" crossorigin=\"anonymous\"></script>"
+                + "</body>"
+                + "</center>"
+                + "</html>";
+        return pageContent;
     }
+
 }

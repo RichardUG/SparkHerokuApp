@@ -6,16 +6,24 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+
 import com.google.gson.Gson;
 
 public abstract class HttpStockService {
 
     private static final String USER_AGENT = "Mozilla/5.0";
+    private HashMap<URL, String> Cache = new HashMap <URL, String> ();
 
     public String TimeSeriesDaily() throws IOException{
         String responseStr =  "None";
         System.out.println(getURL());
         URL obj = new URL(getURL());
+        if(Cache.containsKey(obj)){
+            System.out.println("Contenido");
+            return Cache.get(obj);
+        }
+        System.out.println("Nuevo");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
@@ -38,6 +46,7 @@ public abstract class HttpStockService {
             System.out.println("GET request not worked");
         }
         System.out.println("GET DONE");
+        Cache.put(obj,responseStr);
         return responseStr;
     }
 
