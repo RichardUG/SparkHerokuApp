@@ -1,8 +1,13 @@
 package edu.esculaing.arep.sparkheroku;
 
+import com.google.gson.Gson;
+
 public class JSClient {
     private static String pageContent;
-    public JSClient(){
+    private Gson gson;
+
+    private JSClient(){}
+    public static String  Principal(){
         pageContent
             = "<!doctype html>"
             + "<html lang=\"en\">"
@@ -13,7 +18,7 @@ public class JSClient {
             + "  <!-- Bootstrap CSS -->"
             + "  <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\" integrity=\"sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO\" crossorigin=\"anonymous\">"
             + "  <title>Heroku-Spark</title>"
-            + "  <link href=\"estilos.css\" rel=\"stylesheet\" type=\"text/css\">"
+            + "  <link href=\"https://github.com/RichardUG/SparkHerokuApp/blob/master/src/main/resources/estilos.css\" rel=\"stylesheet\" type=\"text/css\">"
             + "</head>"
             + "<script  type=\"text/javascript\" lang=\"JavaScript\">"
             + "  function paraIEX() {"
@@ -48,16 +53,16 @@ public class JSClient {
             + "<script>"
             + "  function abrir() {"
             + "    if(document.getElementById(\"IEXCloud\").checked){"
-            + "      miVentana = window.open( paraIEX()+\"?st=\"+document.getElementById(\"digite\").value, \"ventana1\", \"height=screen.height,width=screen.width,left=300,location=yes,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=yes,top=300\");"
+            + "      miVentana = window.open( \"JSClient\"+\"?api=\"+paraIEX()+\"&st=\"+document.getElementById(\"digite\").value, \"ventana1\", \"height=screen.height,width=screen.width,left=300,location=yes,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=yes,top=300\");"
             + "    }"
             + "    if(document.getElementById(\"AlphaVantage\").checked){"
-            + "      miVentana = window.open( paraAlpha()+\"?st=\"+document.getElementById(\"digite\").value, \"ventana1\", \"height=screen.height,width=screen.width,left=300,location=yes,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=yes,top=300\");"
+            + "      miVentana = window.open( \"JSClient\"+\"?api=\"+paraAlpha()+\"&st=\"+document.getElementById(\"digite\").value, \"ventana1\", \"height=screen.height,width=screen.width,left=300,location=yes,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=yes,top=300\");"
             + "    }"
             + "    miVentana.moveTo(-100, -100);"
             + "  }"
             + "</script>"
             + "<center>"
-            + "<body background=\"https://github.com/RichardUG/SparkHerokuApp/blob/master/img/wallper.png?raw=true\" brightness=\"150\">"
+            + "<body background=\"https://github.com/RichardUG/SparkHerokuApp/blob/master/img/wallper.png?raw=true\" >"
             + "  <br><br><br><br>"
             + "  <h1><FONT COLOR=\"black\">Java Scrip Client</FONT></h1>"
             + "  <h2><FONT COLOR=\"black\">Consultas API</FONT></h2>"
@@ -85,9 +90,8 @@ public class JSClient {
             + "</body>"
             + "</center>"
             + "</html>";
-    }
-
-    public static String getPageContent() {
         return pageContent;
     }
+
+
 }

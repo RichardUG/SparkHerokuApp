@@ -1,51 +1,30 @@
 package edu.esculaing.arep.sparkheroku;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static spark.Spark.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONException;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 
 public class App {
 
+
     public static void main(String[] args){
         staticFiles.location("/public");
-        port(getPort());
-        get("/inputdata", (req, res) -> inputDataPage(req,res));
-        get("/results", (req, res) -> resultsPage(req,res));
+        port(getPort());;
         get("/facadealpha", "application/json", (req, res) -> facadeAlpha(req,res));
         get("/facadeiex", "application/json", (req, res) -> facadeIex(req,res));
         get("/JSClient", (req, res) -> facadeJSClient(req,res));
     }
 
-    private static String inputDataPage(Request req, Response res){
-        String pageContent
-                = "<!DOCTYPE html>"
-                + "<html>"
-                + "<body>"
-                + "<h2>HTML Forms</h2>"
-                + "<form action=\"/results\">"
-                + " First name: <br>"
-                + " <input type=\"text\" name=\"firstname\" value=\"Mickey\">"
-                + " <br>"
-                + " Last name: <br>"
-                + " <input type=\"text\" name=\"lastname\" value=\"Mouse\">"
-                + " <br><br>"
-                + " <input type=\"submit\" value=\"Submit\">"
-                + "</form>"
-                + "<p>If  you click the \"Submit\" button, the form data will be sent to a page called \"/results\"."
-                + "</body>"
-                + "</html>";
-        return pageContent;
-    }
 
-    private static String resultsPage(Request req, Response res){
-        return req.queryParams("firstname")+ " " + req.queryParams("lastname");
-    }
 
     static int getPort(){
         if (System.getenv("PORT")!=null){
@@ -72,8 +51,6 @@ public class App {
     }
 
     public static String facadeIex(Request req, Response res){
-        System.out.println(req);
-        System.out.println(res);
         String stock = req.queryParams("st");
         String response = "None";
         HttpStockService stockService = CurrentServiceInstance.getInstance().getServiceIEX();
@@ -88,9 +65,23 @@ public class App {
         return response;
     }
 
-    private static String  facadeJSClient(Request req, Response res) {
-        JSClient jsClient = new JSClient();
-        String pageContent=jsClient.getPageContent();
+    private static String  facadeJSClient(Request req, Response res){
+        String api = req.queryParams("api");
+        String stock = req.queryParams("st");
+        String pageContent="";
+        if(stock==null || stock==""){
+            pageContent=JSClient.Principal();
+        }
+        try{
+            if(api.equalsIgnoreCase("facadeiex")){
+                pageContent=facadeIex(req,res);
+            }
+            else if(api.equalsIgnoreCase("facadealpha")){
+                pageContent=facadeAlpha(req,res);
+            }
+        }catch (NullPointerException ex){
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return pageContent;
     }
 }
