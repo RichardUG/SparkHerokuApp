@@ -13,9 +13,9 @@
 >
 > Antes de bajar el repositorio debemos saber que para visualizar correctamente el contenido de lo ```JSON``` que seran retornados es necesario instalar una extension, esta varia dependiendo del navegador y se encuentran a continación:
 > 
-> > [Google Chrome visualizador JSON](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh/related)
-> > [Microsoft Edge visualizador JSON](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh/related)
-> > [Mozilla Firefox visualizador JSON](https://addons.mozilla.org/es/firefox/addon/json-lite/)
+> > * [Google Chrome visualizador JSON](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh/related)
+> > * [Microsoft Edge visualizador JSON](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh/related)
+> > * [Mozilla Firefox visualizador JSON](https://addons.mozilla.org/es/firefox/addon/json-lite/)
 > 
 > Ahora clonamos este repositario desde ```cmd```, con el siguiente comando
 >
