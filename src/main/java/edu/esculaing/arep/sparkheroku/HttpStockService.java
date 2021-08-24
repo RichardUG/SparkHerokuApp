@@ -3,18 +3,25 @@ package edu.esculaing.arep.sparkheroku;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-import com.google.gson.Gson;
-
+/**
+ * Clase extendida que se encarga de procesar la información que se consulta y extrae de las APIs.
+ * @author Richard Santiago Urrea Garcia
+ * @version 1.0.  (23 de Agosto del 2021)
+ */
 public abstract class HttpStockService {
 
     private static final String USER_AGENT = "Mozilla/5.0";
     private HashMap<URL, String> Cache = new HashMap <URL, String> ();
 
+    /**
+     * Metodo que realiza la conexión a las diversas APIs y extrae su contenido
+     * @return cadena que contiene el codigo JSON de la API consultada
+     * @throws IOException controla las excepciones que se puedan generar por mala conexión con las APIs
+     */
     public String TimeSeriesDaily() throws IOException{
         String responseStr =  "None";
         System.out.println(getURL());
@@ -50,7 +57,21 @@ public abstract class HttpStockService {
         return responseStr;
     }
 
+    /**
+     * Metodo abstracto que retorna una cadena que contiene una URL
+     * @return cadena que lleva inscrita una URL
+     */
     abstract public String getURL();
+
+    /**
+     * Metodo abstracto que envia cambia el valor del stock
+     * @param stock nuevo valor que se le asignara al stock
+     */
     abstract public void setStock(String stock);
+
+    /**
+     * Metodo abstracto que retorna el stock
+     * @return stock
+     */
     abstract public String getStock();
 }

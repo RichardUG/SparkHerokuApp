@@ -3,6 +3,11 @@ import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import java.io.IOException;
+/**
+ * Clase que en escencia es el cliente de pruebas.
+ * @author Richard Santiago Urrea Garcia
+ * @version 1.0.  (23 de Agosto del 2021)
+ */
 public class TestClient {
 
     @Test

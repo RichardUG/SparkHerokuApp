@@ -2,11 +2,24 @@ package edu.esculaing.arep.sparkheroku;
 
 import com.google.gson.Gson;
 
+/**
+ * Clase que crea el contenido y la logica que mostrara el cliente web.
+ * @author Richard Santiago Urrea Garcia
+ * @version 1.0.  (23 de Agosto del 2021)
+ */
 public class JSClient {
     private static String pageContent;
     private Gson gson;
 
+    /**
+     * Constructor de nuestra clase
+     */
     private JSClient(){}
+
+    /**
+     * Metodo que crea y almacena en un String el codigo para desplegar el cliente web
+     * @return cadena que lleva el codigo para consifgurar la pagina web
+     */
     public static String  Principal(){
         pageContent
             = "<!doctype html>"
@@ -18,7 +31,6 @@ public class JSClient {
             + "  <!-- Bootstrap CSS -->"
             + "  <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\" integrity=\"sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO\" crossorigin=\"anonymous\">"
             + "  <title>Heroku-Spark</title>"
-            + "  <link href=\"https://github.com/RichardUG/SparkHerokuApp/blob/master/src/main/resources/estilos.css\" rel=\"stylesheet\" type=\"text/css\">"
             + "</head>"
             + "<script  type=\"text/javascript\" lang=\"JavaScript\">"
             + "  function paraIEX() {"
@@ -52,6 +64,9 @@ public class JSClient {
             + "</script>"
             + "<script>"
             + "  function abrir() {"
+            + "    if(window.miVentana){"
+            + "      miVentana.close();"
+            + "    }"
             + "    if(document.getElementById(\"IEXCloud\").checked){"
             + "      miVentana = window.open( \"JSClient\"+\"?api=\"+paraIEX()+\"&st=\"+document.getElementById(\"digite\").value, \"ventana1\", \"height=screen.height,width=screen.width,left=300,location=yes,menubar=no,resizable=no,scrollbars=yes,status=no,titlebar=yes,top=300\");"
             + "    }"
